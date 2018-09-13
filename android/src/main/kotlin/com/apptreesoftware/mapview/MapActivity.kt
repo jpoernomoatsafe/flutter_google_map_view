@@ -445,6 +445,7 @@ class MapActivity : AppCompatActivity(),
                     annotation.colorHue))
         }
         val marker = map.addMarker(markerOptions)
+        marker.showInfoWindow()
         marker.tag = annotation.identifier
         return marker
     }
