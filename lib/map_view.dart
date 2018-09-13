@@ -42,6 +42,10 @@ class MapView {
       new StreamController.broadcast();
   StreamController<CameraPosition> _cameraStreamController =
       new StreamController.broadcast();
+  StreamController<CameraPosition> _cameraIdleController =
+      new StreamController.broadcast();
+  StreamController<Null> _cameraMoveStartedController =
+      new StreamController.broadcast();
   StreamController<int> _toolbarActionStreamController =
       new StreamController.broadcast();
   StreamController<Null> _mapReadyStreamController =
@@ -265,6 +269,10 @@ class MapView {
 
   Stream<CameraPosition> get onCameraChanged => _cameraStreamController.stream;
 
+  Stream<CameraPosition> get onCameraIdle => _cameraIdleController.stream;
+
+  Stream<CameraPosition> get onCameraMoveStarted => _cameraMoveStartedController.stream;
+
   Stream<int> get onToolbarAction => _toolbarActionStreamController.stream;
 
   Stream<Null> get onMapReady => _mapReadyStreamController.stream;
@@ -359,6 +367,12 @@ class MapView {
         return new Future.value("");
       case "cameraPositionChanged":
         _cameraStreamController.add(new CameraPosition.fromMap(call.arguments));
+        return new Future.value("");
+      case "cameraIdle":
+        _cameraIdleController.add(new CameraPosition.fromMap(call.arguments));
+        return new Future.value("");
+      case "cameraMoveStarted":
+        _cameraMoveStartedController.add(null);
         return new Future.value("");
       case "onToolbarAction":
         _toolbarActionStreamController.add(call.arguments);

@@ -96,6 +96,13 @@ class MapActivity : AppCompatActivity(),
             val pos = map.cameraPosition
             MapViewPlugin.cameraPositionChanged(pos)
         }
+        map.setOnCameraMoveStartedListener {
+            MapViewPlugin.cameraMoveStarted()
+        }
+        map.setOnCameraIdleListener {
+            val pos = map.cameraPosition
+            MapViewPlugin.cameraIdle(pos)
+        }
         map.setOnMyLocationChangeListener {
             val loc = map.myLocation ?: return@setOnMyLocationChangeListener
             MapViewPlugin.locationDidUpdate(loc)

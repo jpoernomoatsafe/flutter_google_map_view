@@ -137,6 +137,20 @@ class MapViewPlugin(val activity: Activity) : MethodCallHandler {
             ))
         }
 
+        fun cameraIdle(pos: CameraPosition) {
+            this.channel.invokeMethod("cameraIdle", mapOf(
+                    "latitude" to pos.target.latitude,
+                    "longitude" to pos.target.longitude,
+                    "zoom" to pos.zoom,
+                    "bearing" to pos.bearing,
+                    "tilt" to pos.tilt
+            ))
+        }
+
+        fun cameraMoveStarted() {
+            this.channel.invokeMethod("cameraMoveStarted", null)
+        }
+
         fun locationDidUpdate(loc: Location) {
             var verticalAccuracy = 0.0f
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
